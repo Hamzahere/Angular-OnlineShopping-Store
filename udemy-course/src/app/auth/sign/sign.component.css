@@ -1,0 +1,44 @@
+#container{
+    display: flex;
+    height: 700px;
+    border: 2px black solid;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.child{
+    height: 200px;
+    /*flex: 1;*/
+    width: 200px;
+   
+}
+
+#child1{
+    background-color: firebrick
+}
+
+#child2{
+    background-color: aqua
+}
+
+#child3{
+    background-color: darkmagenta
+}
+
+/*.signup-form{
+    width: 300px;
+    border: 2px solid black;
+    
+}*/
+
+mat-form-field{
+    width: 300px;
+}
+
+#but1{
+    position: relative;
+    margin-top: 20px;
+}

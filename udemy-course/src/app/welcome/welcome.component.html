@@ -1,0 +1,25 @@
+
+
+    
+
+
+<header>
+	<div class="overlay">
+<h1>Welcome </h1>
+<h3>Reasons for Choosing US</h3>
+<p>"We provide the best gift hampers in town with affordable rates"</p>
+	<br>
+	<button>READ MORE</button>
+		</div>
+</header>
+
+<mat-grid-list cols="4" rowHeight="100px" gutterSize="16px" >
+    <mat-grid-tile
+        *ngFor="let tile of tiles"
+        [colspan]="tile.cols"
+        [rowspan]="tile.rows"
+        [style.background]="tile.color">
+      {{tile.text}}
+    </mat-grid-tile>
+  </mat-grid-list>
+
