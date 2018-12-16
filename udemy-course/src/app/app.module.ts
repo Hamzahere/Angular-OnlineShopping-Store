@@ -17,6 +17,12 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AngularFireModule } from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
+
+
 // import { from } from 'rxjs';
 
 @NgModule({
@@ -39,7 +45,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [ListofprodService],
   bootstrap: [AppComponent]

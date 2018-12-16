@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import{AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,13 @@ export class LoggingCheckService {
                   {name:"Faaiz", id:"002"}
 ];
 flags : boolean;
+
 disabled:boolean;
-  constructor() { }
+  constructor(private db:AngularFirestore) {
+    this.db.collection('users').valueChanges().subscribe((result)=>{
+      console.log(result);
+    });
+   }
 
   checkIfUserExist(data:{name:string, id:string}){
 
