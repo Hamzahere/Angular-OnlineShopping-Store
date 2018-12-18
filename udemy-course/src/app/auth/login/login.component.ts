@@ -14,6 +14,7 @@ import {NgForm} from '@angular/forms';
 export class LoginComponent implements OnInit {
   @Input() username:string;
   @Input() id:string;
+  @Input() name:string;
   obj : {name:string, id:string};
   constructor(private loggingCheckService:LoggingCheckService) { }
 
