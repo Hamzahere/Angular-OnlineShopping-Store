@@ -20,6 +20,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AngularFireModule } from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { LoggingCheckService } from './logging-check.service';
 
 
 
@@ -49,7 +50,7 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [ListofprodService],
+  providers: [ListofprodService,LoggingCheckService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

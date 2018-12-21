@@ -43,13 +43,12 @@
         <main>
             <section class="hero text-light text-center">
                 <div class="container-sm">
-                    <div class="hero-inner">
-                        <h1 >USER NAME</h1>
-                        
-                        <div class="hero-media">
-                            <h1>USER NAME</h1>
-                        </div>
-                    </div>
+                    <ul>
+                        <li *ngFor="let items of recievedfromService">
+                          {{ items.name }}
+                        </li>
+                      </ul>
+                    `
                 </div>
             </section>
 

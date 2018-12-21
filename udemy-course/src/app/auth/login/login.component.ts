@@ -5,11 +5,12 @@ import {NgForm} from '@angular/forms';
 
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers:[LoggingCheckService]
+  //providers:[LoggingCheckService]
 })
 export class LoginComponent implements OnInit {
   @Input() username:string;
