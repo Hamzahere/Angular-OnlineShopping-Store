@@ -4,6 +4,8 @@ import {map,retryWhen} from 'rxjs/operators';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 //import 'rxjs/add/operator/retry';
+import { switchMap } from 'rxjs/operators';
+
 
 
 
@@ -29,8 +31,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Injectable()
 export class LoggingCheckService implements OnInit {
   
+   size$ = new Subject<string>();
   exercisesChanged = new Subject<details[]>();
-   @Output() sendtoProfile:details[];
+    sendtoProfile:details[];
  //@Output() sendtoProfile:[any];
   private itemsCollection: AngularFirestoreCollection<details>;
   items: Observable<details[]>;
@@ -41,12 +44,16 @@ export class LoggingCheckService implements OnInit {
   flags : boolean;
 disabled:boolean;
 customSubcsription:Subscription;
+queryObservable:any;
 
   constructor(private db:AngularFirestore, private activatedRoute:ActivatedRoute, private router:Router) {
+
+    
+
    
     this.itemsCollection = this.db.collection<details>('users');
     
-    
+    this.size$.next('hamzahere99@gmail.com');
   // this.db.collection('users').valueChanges().subscribe((result)=>{
   //     //console.log(result);
   //    // result.
@@ -80,7 +87,7 @@ customSubcsription:Subscription;
   //this.fetchfromFirebase();
  }
 
-  checkIfUserExist(data:{name:string, id:string}){
+  fetchData(){
 
     // for(let i of this.user_details){
     //   if(data.name == i.name && data.id == i.id ){
@@ -99,35 +106,28 @@ customSubcsription:Subscription;
     
 
         this.items = this.itemsCollection.valueChanges();
+       
     this.items
     .subscribe((items:details[])=>{
-      
-      this.sendtoProfile = items;
+      console.log(items);
+      this.sendtoProfile  = items;
       this.exercisesChanged.next([...this.sendtoProfile]);
-      for(let item of items){
-        if(item.name == data.name){
-          this.anItem = item;
-          console.log('user found');
-         
-
-        
-          //this.checking.push(item);
-          this.flags = false;
-          //this.router.navigate(['/user-profile']);
-          
-        }
-        
-      }
-
-      
-      if(this.flags==false)
       this.router.navigate(['/user-profile']);
+    })
+    }
       
-    },)
-    
-     }
-
+    searchforUser(email:string){
+      this.queryObservable = this.size$.pipe(
+        switchMap(size => 
+          this.db.collection('items', ref => ref.where('email', '==', size)).valueChanges()
+        )
+      );
   
+      this.queryObservable.subscribe(queriedItems => {
+        console.log(queriedItems);  
+      });
+      
 
+    }
   
 }

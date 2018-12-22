@@ -8,6 +8,7 @@ import { HampersDetailsComponent } from './hampers-details/hampers-details.compo
 import { CustomBasketsComponent } from './custom-baskets/custom-baskets.component';
 import { NewAdditionsComponent } from './new-additions/new-additions.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import { AuthGuard } from './auth/sign/auth.guard';
 
 
 const routes: Routes = [
@@ -18,12 +19,13 @@ const routes: Routes = [
   {path:'hampers-details', component:HampersDetailsComponent},
   {path:'custom', component:CustomBasketsComponent},
   {path:'new-additions', component:NewAdditionsComponent},
-  {path:'user-profile', component:UserProfileComponent}
+  {path:'user-profile', component:UserProfileComponent , canActivate:[AuthGuard]}
   
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule], 
+  providers:[AuthGuard]
 })
 export class AppRoutingModule { }

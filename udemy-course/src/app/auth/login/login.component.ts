@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LoggingCheckService } from 'src/app/logging-check.service';
 import{FormsModule} from '@angular/forms';
 import {NgForm} from '@angular/forms';
+import { AuthService } from 'src/app/auth.service';
 
 
 
@@ -13,23 +14,22 @@ import {NgForm} from '@angular/forms';
   //providers:[LoggingCheckService]
 })
 export class LoginComponent implements OnInit {
-  @Input() username:string;
-  @Input() id:string;
-  @Input() name:string;
+   email:string;
+   password:string;
+  //@Input() name:string;
   obj : {name:string, id:string};
-  constructor(private loggingCheckService:LoggingCheckService) { }
+  constructor(private loggingCheckService:LoggingCheckService,private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  check(){
+  onSubmit(f){
 
-    //console.log(name);
-this.obj = {name:this.username, id:this.id};
-console.log(this.obj);
-    //let i = JSON.parse(name);
-    //console.log(i)
-   this.loggingCheckService.checkIfUserExist(this.obj);
+    this.authService.login({
+      email:f.value.Email,
+      password:f.value.Password
+    });
+
   }
 
 }

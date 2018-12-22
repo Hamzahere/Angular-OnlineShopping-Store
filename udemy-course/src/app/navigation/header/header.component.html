@@ -6,7 +6,7 @@
       <a routerLink = "/">LOGO</a>
   </div>
   <div fxLayout fxFlex fxLayoutAlign="end" fxLayoutGap= "10px" fxHide.xs>
-      <a routerLink = "/sign">SignIn</a>
-      <a routerLink = "/hampers">Hampers</a>
+      <a *ngIf = "!isAuth"  routerLink = "/sign">SignIn</a>
+      <a *ngIf = "isAuth" routerLink = "/hampers">Hampers</a>
   </div>
 </mat-toolbar>

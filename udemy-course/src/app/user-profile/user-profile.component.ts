@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges,OnDestroy } from '@a
 import { LoggingCheckService } from 'src/app/logging-check.service';
 import { Observable, Subscription } from 'rxjs';
 import {details} from '../logging-check.service';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -12,7 +13,7 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
   exerciseSubscription: Subscription;
   recievedfromService:details[];
 
-  constructor(private loggingCheckService:LoggingCheckService) { 
+  constructor(private loggingCheckService:LoggingCheckService, private authService:AuthService) { 
     
  // if(this.flagfromService == false){
   // this.recievedfromService = this.loggingCheckService.sendtoProfile;
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
         console.log(this.recievedfromService);
       }
     );
+    this.loggingCheckService.fetchData();
     
     //this.loggingCheckService.checkIfUserExist();
    
@@ -40,6 +42,10 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
 
   ngOnDestroy() {
     this.exerciseSubscription.unsubscribe();
+  }
+
+  logout(){
+  this.authService.logout();
   }
 
 

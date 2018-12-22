@@ -1,4 +1,4 @@
-<section class="signup-form">
+<section *ngIf="!isAuthenticated()" class="signup-form">
   <form  fxLayoutGap= "10px" fxLayout="column" fxLayoutAlign= "center center" #f="ngForm" (ngSubmit)="submitting(f)" >
     <mat-form-field>
       <input 
