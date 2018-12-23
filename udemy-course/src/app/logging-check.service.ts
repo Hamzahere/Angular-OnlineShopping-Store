@@ -1,4 +1,4 @@
-import { Injectable, OnInit, Output } from '@angular/core';
+import { Injectable, OnInit, EventEmitter } from '@angular/core';
 import{AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {map,retryWhen} from 'rxjs/operators';
 import { Observable, Subscription, Subject } from 'rxjs';
@@ -37,14 +37,16 @@ export class LoggingCheckService implements OnInit {
  //@Output() sendtoProfile:[any];
   private itemsCollection: AngularFirestoreCollection<details>;
   items: Observable<details[]>;
-  anItem:details = {name:"dummy", age:0, email:"du@abc"};
+  
 //   checking :[] = [];
 // //users_firebase:{}[] = [];
-  usersDetails : Observable<any>;
+  //usersDetails : Observable<any>;
   flags : boolean;
 disabled:boolean;
 customSubcsription:Subscription;
 queryObservable:any;
+send = new EventEmitter<string>();
+
 
   constructor(private db:AngularFirestore, private activatedRoute:ActivatedRoute, private router:Router) {
 
@@ -112,22 +114,23 @@ queryObservable:any;
       console.log(items);
       this.sendtoProfile  = items;
       this.exercisesChanged.next([...this.sendtoProfile]);
-      this.router.navigate(['/user-profile']);
+      //this.router.navigate(['/user-profile']);
     })
     }
       
     searchforUser(email:string){
-      this.queryObservable = this.size$.pipe(
-        switchMap(size => 
-          this.db.collection('items', ref => ref.where('email', '==', size)).valueChanges()
-        )
-      );
+      // this.queryObservable = this.size$.pipe(
+      //   switchMap(size => 
+      //     this.db.collection('items', ref => ref.where('email', '==', size)).valueChanges()
+      //   )
+      // );
   
-      this.queryObservable.subscribe(queriedItems => {
-        console.log(queriedItems);  
-      });
+      // this.queryObservable.subscribe(queriedItems => {
+      //   console.log(queriedItems);  
+      // });
       
 
     }
   
+    
 }

@@ -22,6 +22,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { LoggingCheckService } from './logging-check.service';
+import { AuthService } from './auth.service';
 
 
 
@@ -52,7 +53,7 @@ import { LoggingCheckService } from './logging-check.service';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [ListofprodService,LoggingCheckService],
+  providers: [ListofprodService,LoggingCheckService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

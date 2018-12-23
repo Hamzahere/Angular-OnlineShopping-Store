@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { LoggingCheckService } from 'src/app/logging-check.service';
 import{FormsModule} from '@angular/forms';
 import {NgForm} from '@angular/forms';
@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/auth.service';
   //providers:[LoggingCheckService]
 })
 export class LoginComponent implements OnInit {
-   email:string;
+   emailtosend:string;
    password:string;
   //@Input() name:string;
   obj : {name:string, id:string};
@@ -24,12 +24,21 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(f){
-
+this.emailtosend = f.value.Email;
+this.loggingCheckService.send.emit(this.emailtosend);
     this.authService.login({
       email:f.value.Email,
       password:f.value.Password
     });
 
+   
+
+    
+  }
+
+  isAuthenticated():boolean{
+    //this.authService.isAuth();
+    return this.authService.isAuth();
   }
 
 }

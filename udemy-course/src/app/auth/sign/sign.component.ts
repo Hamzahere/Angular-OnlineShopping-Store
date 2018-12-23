@@ -29,7 +29,5 @@ export class SignComponent implements OnInit {
     
     
   }
-  isAuthenticated(){
-    this.authService.isAuth();
-  }
+  
 }
