@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  fbSignIn :false,
   firebase: {
     apiKey: "AIzaSyCTSMWhy2A4F6D-1ypFsnqcLaisWYiuCMA",
     authDomain: "uitlab1-7145e.firebaseapp.com",
@@ -11,6 +12,14 @@ export const environment = {
     projectId: "uitlab1-7145e",
     storageBucket: "uitlab1-7145e.appspot.com",
     messagingSenderId: "832194041247"
+  },
+  modes: {
+    POPUP: 'popup',
+    REDIRECT: 'redirect'
+  },
+  providers: {
+    
+    FACEBOOK: 'facebook'
   }
   
 };

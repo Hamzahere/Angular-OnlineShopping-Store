@@ -45,7 +45,7 @@ export class LoggingCheckService implements OnInit {
 disabled:boolean;
 customSubcsription:Subscription;
 queryObservable:any;
-send = new EventEmitter<string>();
+send = new Subject<string>();
 
 
   constructor(private db:AngularFirestore, private activatedRoute:ActivatedRoute, private router:Router) {
@@ -111,7 +111,7 @@ send = new EventEmitter<string>();
        
     this.items
     .subscribe((items:details[])=>{
-      console.log(items);
+      //console.log(items);
       this.sendtoProfile  = items;
       this.exercisesChanged.next([...this.sendtoProfile]);
       //this.router.navigate(['/user-profile']);

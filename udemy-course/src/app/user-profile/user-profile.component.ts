@@ -3,6 +3,9 @@ import { LoggingCheckService } from 'src/app/logging-check.service';
 import { Observable, Subscription } from 'rxjs';
 import {details} from '../logging-check.service';
 import { AuthService } from '../auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import {environment} from 'src/environments/environment';
+import {User} from 'firebase';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -13,9 +16,12 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
   email:string;
   exerciseSubscription: Subscription;
   recievedfromService:details[];
-  username:string;
+  username:any;
+  fbSubscribtion :Subscription;
+  forloggingService:Subscription;
+  user :User;
 
-  constructor(private loggingCheckService:LoggingCheckService, private authService:AuthService) { 
+  constructor(public afAuth: AngularFireAuth,private loggingCheckService:LoggingCheckService, private authService:AuthService) { 
     
     // this.loggingCheckService.send.subscribe((data)=>{
     //   console.log(data);
@@ -36,10 +42,20 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
       }
     );
     this.loggingCheckService.fetchData();
-    this.loggingCheckService.send.subscribe((data)=>{
-      console.log(data);
+
+   this.forloggingService  = this.loggingCheckService.send.subscribe((data)=>{
+      console.log(data+"email ones");
      this.username = data;
           })
+
+          this.fbSubscribtion = this.authService.credentialsReady.subscribe((user)=>{
+            this.username = user.displayName;
+            console.log('data from facebook');
+            console.log('data recieved from authservice'+this.username);
+
+          })
+          if(environment.fbSignIn == true)
+            this.authService.facebookSignInViaPopup();
     
     
     //this.loggingCheckService.checkIfUserExist();
@@ -56,6 +72,8 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
 
   ngOnDestroy() {
     this.exerciseSubscription.unsubscribe();
+    this.fbSubscribtion.unsubscribe();
+    this.forloggingService.unsubscribe();
   }
 
   logout(){
