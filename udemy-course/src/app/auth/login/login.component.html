@@ -1,6 +1,78 @@
-<h1>Enter user name</h1>
-<input [(ngModel)]="username"  >
-<input [(ngModel)]="id" >
 
-<input type="submit" (click)= check()>
 
+
+
+
+<div class="first">
+    <h1 class="heading1"> LOG IN</h1>
+    <section class="signup-form">
+      <form fxLayout="column" fxLayoutALign="center center"  fxLayoutGap="1px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    
+        <mat-form-field hintLabel="Name shouldn't contain special characters">
+          <input type="text" matInput placeholder="Enter Email " 
+          ngModel name="Email" 
+          username required 
+          #userInput="ngModel">
+    
+    
+          <mat-error *ngIf="userInput.hasError('required')"> You must enter a name</mat-error>
+         
+          <mat-error ></mat-error>
+        </mat-form-field>
+        
+        <!--Name-->
+    
+        
+      <mat-form-field hintLabel="min 8 characters">
+        <input type="password" matInput placeholder="Password" ngModel name="Password" 
+        password required minlength="8"  #pwInput="ngModel">
+      
+        <mat-hint align="end"> {{ pwInput.value?.length }}/8 </mat-hint> 
+      <mat-error *ngIf="pwInput.hasError('required')">Must enter a password</mat-error> 
+      
+    </mat-form-field>
+    
+      <!--Password-->
+    
+
+      <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid"> Submit</button>
+      
+      </form>
+      <p class="su">Don't Have a Account?<a routerLink="/sign"> signup</a></p>
+    </section>
+    
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col">
+              
+              <button class="btn btn-primary btn-block facebook"
+        (click)="facebookSignInViaPopup()">
+        <i class="fab fa-facebook-f"></i> Facebook Login with Popup
+      </button>
+              
+            </div>
+            <div class="col">
+              
+              <button class="btn btn-primary btn-block google"
+              (click)="facebookSignInViaRedirect()">
+              <i class="fab fa-google"></i> Facebook Login with Redirect
+            </button>
+              
+            </div>
+          </div>
+          
+    </div>
+    </div>
+    </div>
+  
+    
+<!--
+    <app-user-profile *ngIf="isAuthenticated()"
+    ></app-user-profile>
+-->
+    
+    

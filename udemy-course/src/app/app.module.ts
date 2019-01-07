@@ -19,7 +19,10 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AngularFireModule } from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { LoggingCheckService } from './logging-check.service';
+import { AuthService } from './auth.service';
 
 
 
@@ -47,9 +50,10 @@ import { environment } from 'src/environments/environment';
     MaterialModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
-  providers: [ListofprodService],
+  providers: [ListofprodService,LoggingCheckService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
