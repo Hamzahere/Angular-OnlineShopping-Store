@@ -6,6 +6,8 @@ import { AuthService } from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {environment} from 'src/environments/environment';
 import {User} from 'firebase';
+import { AuthData } from '../auth/sign/auth-data.model';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -20,8 +22,10 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
   fbSubscribtion :Subscription;
   forloggingService:Subscription;
   user :User;
+  x;
+  a:any;
 
-  constructor(public afAuth: AngularFireAuth,private loggingCheckService:LoggingCheckService, private authService:AuthService) { 
+  constructor(public afAuth: AngularFireAuth,private loggingCheckService:LoggingCheckService, public authService:AuthService) { 
     
     // this.loggingCheckService.send.subscribe((data)=>{
     //   console.log(data);
@@ -31,10 +35,20 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
   // this.recievedfromService = this.loggingCheckService.sendtoProfile;
   // console.log(this.recievedfromService);
   //}
+  
+  
   }
   ngOnInit() {
     //this.recievedfromService = this.loggingCheckService.sendtoProfile;  this is was before 
     //this.flagfromService = this.loggingCheckService.sendflagToUser();
+
+    this.x = this.authService.x;
+    this.a =  this.afAuth.authState;
+    // for(var property in this.x) {
+    //   console.log(property + "=" + this.x[property]);
+ // }
+    
+   // console.log('x is '+this.x);
      this.exerciseSubscription =  this.loggingCheckService.exercisesChanged.subscribe(
       (exercises) => {this.recievedfromService = exercises;
         //console.log(this.recievedfromService);
@@ -43,17 +57,19 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
     );
     this.loggingCheckService.fetchData();
 
-   this.forloggingService  = this.loggingCheckService.send.subscribe((data)=>{
-      console.log(data+"email ones");
-     this.username = data;
-          })
+    this.loggingCheckService.send.pipe(map(data =>
+      console.log(data+"email ones")
+      ));
+    //   console.log(data+"email ones");
+    //  this.username = data;
+    
 
-          this.fbSubscribtion = this.authService.credentialsReady.subscribe((user)=>{
+           this.authService.credentialsReady.pipe(map((user)=>{
             this.username = user.displayName;
             console.log('data from facebook');
             console.log('data recieved from authservice'+this.username);
 
-          })
+          }))
           if(environment.fbSignIn == true)
             this.authService.facebookSignInViaPopup();
     
@@ -72,8 +88,8 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
 
   ngOnDestroy() {
     this.exerciseSubscription.unsubscribe();
-    this.fbSubscribtion.unsubscribe();
-    this.forloggingService.unsubscribe();
+    //this.fbSubscribtion.unsubscribe();
+   //this.forloggingService.unsubscribe();
   }
 
   logout(){

@@ -6,6 +6,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import {environment} from '../environments/environment';
 
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,20 +22,33 @@ export class AuthService {
   signInMode = false;
   user_details:any;
   credentialsReady = new Subject<any>();
+  x;
+  y:Observable<any>;
   
 
-  constructor(private router:Router, private afauth:AngularFireAuth) { }
+  constructor(private db:AngularFirestore, private router:Router, public afauth:AngularFireAuth) { }
 
   registerUser(authData:AuthData){
     this.afauth.auth.createUserWithEmailAndPassword(authData.email, authData.password)
     .then(result=>{
 //this.authSuccessfully();
+console.log(result);
+this.y = this.afauth.user.pipe(map( data => data.email.toString()));
+this.y.subscribe((data)=>{
+  console.log(data);
+})
+//console.log(this.y);
+
 this.isAuthenticated = true;
     this.authChange.next(true);
     })
     .catch((result)=>{
       console.log(result);
     });
+    
+   
+    //let a = this.afauth.user.pipe(map( data => data.email.toString()));
+    //console.log(a);
 
   }
 
@@ -47,7 +64,9 @@ this.isAuthenticated = true;
       console.log(result);
     })
 
-    
+    //previouslt this was this.x = this.afauth.user.pipe(map(data=>data.email.toString()));
+    this.x = this.afauth.user.pipe(map( data => data.email.toString()));
+   // this.db.collection('users').add(authData);
 
   }
 
