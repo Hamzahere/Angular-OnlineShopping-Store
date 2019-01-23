@@ -86,7 +86,7 @@ this.isAuthenticated = true;
   private authSuccessfully() {
     this.isAuthenticated = true;
     this.authChange.next(true);
-   this.router.navigate(['/user-profile']);
+   //this.router.navigate(['/user-profile']);
   }
 
   facebookSignInViaPopup(){
@@ -96,21 +96,28 @@ this.isAuthenticated = true;
    this.user_details = userCredentials;
    console.log(this.user_details);
    environment.fbSignIn = true;
-   
   
+  
+    }).catch((err)=>{
+      console.log(err);
+      this.router.navigate(['/login']);
+      this.isAuthenticated = false;
     });
     
+    this.authSuccessfully();
       this.credentialsReady.next(this.user_details);
-      this.authSuccessfully();
     
     
   }
 
   facebookSignInViaRedirect() {
     this.afauth.auth.signInWithRedirect(new auth.FacebookAuthProvider())
-      .then((userCredentials) => console.log(userCredentials));
+      .then(()=>{
+        this.authSuccessfully();
+        environment.fbSignIn = true;
+      });
      // this.authSuccessfully();
-     this.isAuthenticated = true;
+     //this.isAuthenticated = true;
   }
 
   private getProviderInstance(provider: string) {

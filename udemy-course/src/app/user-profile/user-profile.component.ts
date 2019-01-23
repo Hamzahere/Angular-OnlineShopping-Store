@@ -17,12 +17,16 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
   //flagfromService:boolean;
   email:string;
   exerciseSubscription: Subscription;
+  emailSubscription: Subscription;
   recievedfromService:details[];
   username:any;
   fbSubscribtion :Subscription;
   forloggingService:Subscription;
   user :User;
+  displayName:string;
+  useremail:string;
   x;
+  photo:any;
   a:any;
 
   constructor(public afAuth: AngularFireAuth,private loggingCheckService:LoggingCheckService, public authService:AuthService) { 
@@ -41,9 +45,23 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
   ngOnInit() {
     //this.recievedfromService = this.loggingCheckService.sendtoProfile;  this is was before 
     //this.flagfromService = this.loggingCheckService.sendflagToUser();
+    this.fbSubscribtion = this.afAuth.authState.subscribe(user=>{
+    // console.log(user);
+     //this.user = user;
+     this.displayName = user.displayName;
+     this.email = user.email;
+     this.photo = user.photoURL;
+     console.log(this.photo);
 
-    this.x = this.authService.x;
-    this.a =  this.afAuth.authState;
+   }, ()=>{}, ()=>{
+     console.log(this.email);
+   })
+     //this.emailSubscription =  this.authService.x.subscribe(email=>{
+     
+      //this.x = email;
+     // console.log(this.email);
+  //   });
+   // this.a =  this.afAuth.authState;
     // for(var property in this.x) {
     //   console.log(property + "=" + this.x[property]);
  // }
@@ -70,8 +88,8 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
             console.log('data recieved from authservice'+this.username);
 
           }))
-          if(environment.fbSignIn == true)
-            this.authService.facebookSignInViaPopup();
+          // if(environment.fbSignIn == true)
+          //   this.authService.facebookSignInViaPopup();
     
     
     //this.loggingCheckService.checkIfUserExist();
@@ -88,12 +106,14 @@ export class UserProfileComponent implements OnInit, OnChanges,OnDestroy   {
 
   ngOnDestroy() {
     this.exerciseSubscription.unsubscribe();
-    //this.fbSubscribtion.unsubscribe();
+    this.fbSubscribtion.unsubscribe();
+    //this.emailSubscription.unsubscribe();
    //this.forloggingService.unsubscribe();
   }
 
   logout(){
   this.authService.logout();
+  this.afAuth.auth.signOut();
   }
 
 

@@ -18,10 +18,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class LoginComponent implements OnInit {
    emailtosend:string;
    password:string;
-
+fbDetails;
    providers = environment.providers;
   modes = environment.modes;
-  
+  fb = environment.fbSignIn;
    
   //@Input() name:string;
   obj : {name:string, id:string};
@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
 
   
   ngOnInit() {
-    console.log(this.afAuth.authState);
+    //console.log(this.afAuth.authState);
+    
   }
 
   onSubmit(f){
@@ -50,6 +51,7 @@ this.loggingCheckService.send.next(this.emailtosend);
   isAuthenticated():boolean{
     //this.authService.isAuth();
     return this.authService.isAuth();
+    //return this.fb;
   }
 
   facebookSignInViaPopup(){

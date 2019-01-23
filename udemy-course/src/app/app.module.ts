@@ -19,10 +19,12 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AngularFireModule } from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { AngularFireStorageModule,  StorageBucket } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { LoggingCheckService } from './logging-check.service';
 import { AuthService } from './auth.service';
+import { DatalogicService } from './datalogic.service';
 
 
 
@@ -51,15 +53,10 @@ import { AuthService } from './auth.service';
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireAuthModule
   ],
-  providers: [ListofprodService,LoggingCheckService, AuthService],
+  providers: [ListofprodService,LoggingCheckService, AuthService,DatalogicService , { provide: StorageBucket, useValue: 'uitlab1-7145e.appspot.com' }],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-  
-
-  
-  
- }
+export class AppModule {}
