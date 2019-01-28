@@ -13,12 +13,21 @@ export class ConfirmDialogComponent implements OnInit {
   profileUrl: Observable<string | null>;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: {name,image}, private storage:AngularFireStorage) { }
-
+date:any;
+address:string;
   ngOnInit() {
 
     const ref = this.storage.ref(this.data.image);
   
     this.profileUrl = ref.getDownloadURL();
+
+  }
+
+  addtoDatabase(a:any){
+    console.log(this.date);
+    console.log(this.address);
+    
+    //console.log(a.value);
 
   }
 

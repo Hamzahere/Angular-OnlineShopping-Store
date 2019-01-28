@@ -173,7 +173,7 @@ console.log(this.itemsArray);
 
   write(event:any){
     console.log(event);
-    this.dialog.open(ConfirmDialogComponent,  {
+    const dialogRef =  this.dialog.open(ConfirmDialogComponent,  {
       
       data:{ 
        name: event.name,
@@ -181,6 +181,11 @@ console.log(this.itemsArray);
       }
     });;
    // console.log(this.saveButton);
+   dialogRef.afterClosed().subscribe(result=>{
+    if(result==true){
+      
+    }
+  });
   }
   
 

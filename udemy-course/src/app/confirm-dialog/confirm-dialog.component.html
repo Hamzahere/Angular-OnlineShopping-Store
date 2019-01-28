@@ -3,8 +3,13 @@
   
 <p>You have ordered for {{data.name}}</p>
 <img height="250px" width="250px" [src]="profileUrl | async" />
+
+<input [(ngModel)]="date" matInput [matDatepicker]="picker" placeholder="Choose a date" >
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <input [(ngModel)]="address" matInput placeholder="Enter delivery address" >
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Yes</button>
+  <button mat-button [mat-dialog-close]="true" (click)= "addtoDatabase(picker)">Yes</button>
   <button mat-button [mat-dialog-close]="false">No</button>
 </div>
 
