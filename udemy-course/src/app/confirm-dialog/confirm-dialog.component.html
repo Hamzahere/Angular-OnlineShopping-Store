@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Your Orrder</h1>
+<div mat-dialog-content>
+  
+<p>You have ordered for {{data.name}}</p>
+<img height="250px" width="250px" [src]="profileUrl | async" />
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Yes</button>
+  <button mat-button [mat-dialog-close]="false">No</button>
+</div>
+

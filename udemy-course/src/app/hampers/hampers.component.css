@@ -16,3 +16,8 @@
   mat-grid-tile {
     background: lightblue;
   }
+
+  .courses-panel {
+    max-width: 400px;
+    margin: 0 auto;
+}

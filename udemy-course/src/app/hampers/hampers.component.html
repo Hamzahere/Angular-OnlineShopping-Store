@@ -221,7 +221,16 @@
   </section>
 
   <mat-grid-list cols="2" rowHeight="2:1">
-      <mat-grid-tile *ngFor="let hampers of itemsArray"> <img [src]="profileUrl | async" /></mat-grid-tile>
+      <mat-grid-tile  *ngFor="let hampers of itemsArray"
+       (click)= "write(hampers)"> 
+
+          {{hampers.name}}<br/>
+        {{hampers.type}}<br/>
+        {{hampers.price}}<br/>
+        <div>
+        <!-- <img [src]="profileUrl | async" /> -->
+      </div>
+      </mat-grid-tile>
       
     </mat-grid-list>
 

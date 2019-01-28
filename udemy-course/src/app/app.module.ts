@@ -25,6 +25,7 @@ import { environment } from 'src/environments/environment';
 import { LoggingCheckService } from './logging-check.service';
 import { AuthService } from './auth.service';
 import { DatalogicService } from './datalogic.service';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 
@@ -42,7 +43,8 @@ import { DatalogicService } from './datalogic.service';
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ import { DatalogicService } from './datalogic.service';
     AngularFireAuthModule
   ],
   providers: [ListofprodService,LoggingCheckService, AuthService,DatalogicService , { provide: StorageBucket, useValue: 'uitlab1-7145e.appspot.com' }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[ConfirmDialogComponent]
 })
 export class AppModule {}
