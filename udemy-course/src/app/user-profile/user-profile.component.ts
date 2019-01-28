@@ -246,7 +246,10 @@ console.log(this.itemsArray);
       data:{ 
        name: event.name,
        image:event.image, 
+       email:this.email,
+       prodId:event.prodId
       }
+      
     });
 
   dialogRef.afterClosed().subscribe(result=>{
